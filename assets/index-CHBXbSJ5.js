@@ -1291,11 +1291,24 @@ Error generating stack: `+p.message+`
   .ccp-idcard-phone { display: flex; align-items: center; gap: 5px; font-size: 12px; color: rgba(255,255,255,0.82); font-weight: 600; margin-top: 4px; }
 
   /* ── Identity card flip (identity <-> medical insurance) ── */
+  /* Each face rotates independently (not a shared preserve-3d wrapper) — combining
+     display:grid's own-cell overlap with transform-style:preserve-3d on the SAME element
+     renders inconsistently across engines (confirmed on both a Chromium preview and real
+     iOS Safari: the flip silently no-opped, front face stayed visible). Grid here only
+     does its ordinary job — overlapping the two faces in one cell and auto-sizing the
+     row to whichever face is taller — with no transform of its own, so it can't trip
+     that bug; only the leaf .ccp-idcard-face elements carry rotation + perspective use. */
   .ccp-idcard-flip { perspective: 1600px; }
-  .ccp-idcard-inner { display: grid; transition: transform .55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
-  .ccp-idcard-inner.flipped { transform: rotateY(180deg); }
-  .ccp-idcard-face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .ccp-idcard-inner { display: grid; }
+  .ccp-idcard-face {
+    grid-area: 1 / 1;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    transition: transform .55s cubic-bezier(.4,.2,.2,1);
+    transform: rotateY(0deg);
+  }
   .ccp-idcard-face.back { transform: rotateY(180deg); }
+  .ccp-idcard-inner.flipped .ccp-idcard-face.front { transform: rotateY(-180deg); }
+  .ccp-idcard-inner.flipped .ccp-idcard-face.back { transform: rotateY(0deg); }
   .ccp-idcard--ins { background: linear-gradient(135deg,#0D9488 0%,#2A52A8 100%); }
   .ins-back-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
   .ins-back-main { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
