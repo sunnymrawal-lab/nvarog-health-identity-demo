@@ -36,5 +36,53 @@
     <!-- Cloudflare Web Analytics -->
     <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e0c403799d34d3fafc7ef7b8d795a01"}'></script>
     <!-- End Cloudflare Web Analytics -->
+    <!--
+      Viewer-identity watermark: a faint, tiled overlay stamping the signed-in viewer's email +
+      timestamp across the page. It is a no-op unless Cloudflare Access is actually protecting
+      this hostname — the /cdn-cgi/access/get-identity fetch just 404s and the catch swallows it,
+      so this is safe to ship ahead of Access being turned on here. Purpose is traceability if a
+      screenshot leaks (there is no way to actually block screenshots from a webpage), not access
+      control — Access itself is what gates entry.
+    -->
+    <script>
+    (function () {
+      function escapeXml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" }[c];
+        });
+      }
+      function renderWatermark(label) {
+        if (document.getElementById("__cf_watermark")) return;
+        var text = escapeXml(label);
+        var svg =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="380" height="220">' +
+          '<text x="0" y="110" transform="rotate(-28 190 110)" ' +
+          'font-family="system-ui, sans-serif" font-size="14" fill="rgba(0,0,0,0.07)" text-anchor="middle">' +
+          text +
+          "</text></svg>";
+        var url = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+        var div = document.createElement("div");
+        div.id = "__cf_watermark";
+        div.style.cssText = [
+          "position:fixed",
+          "inset:0",
+          "z-index:2147483647",
+          "pointer-events:none",
+          "background-image:url('" + url + "')",
+          "background-repeat:repeat"
+        ].join(";");
+        document.body.appendChild(div);
+      }
+      fetch("/cdn-cgi/access/get-identity", { credentials: "include" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (identity) {
+          var email = identity && (identity.email || (identity.user_identity && identity.user_identity.email));
+          if (!email) return;
+          var stamp = email + "  ·  " + new Date().toLocaleString();
+          renderWatermark(stamp);
+        })
+        .catch(function () {});
+    })();
+    </script>
   </body>
 </html>
