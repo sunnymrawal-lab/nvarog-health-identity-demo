@@ -10,10 +10,28 @@
     <link rel="icon" type="image/png" href="/nvarog-health-identity-demo/favicon.png" />
     <link rel="apple-touch-icon" href="/nvarog-health-identity-demo/apple-touch-icon.png" />
     <title>NVAROG</title>
-    <script type="module" crossorigin src="/nvarog-health-identity-demo/assets/index-C2DqYAbA.js"></script>
+    <script type="module" crossorigin src="/nvarog-health-identity-demo/assets/index-61uj76YG.js"></script>
     <link rel="stylesheet" crossorigin href="/nvarog-health-identity-demo/assets/index-DS8jczir.css">
   </head>
   <body>
     <div id="root"></div>
+    <!--
+      A raw page-load counter for the deployed demo, added on request so the user can tell
+      whether the shared link has been opened at all. visitor-badge.laobi.icu needs no account/
+      API key — it just increments a number keyed by the page_id below and serves it back as an
+      SVG. It counts every page load (not de-duplicated per visitor, no free-tier SLA) and
+      carries no identifying information — no names, no IPs are exposed back to us, nothing
+      beyond "loaded N times." To check the count: open
+      https://visitor-badge.laobi.icu/badge?page_id=sunnymrawal-lab.nvarog-health-identity-demo
+      in a browser — note that opening it to check also bumps the count by 1 (confirmed live:
+      it went 1 → 2 just from being viewed twice), so subtract your own checks when reading it.
+    -->
+    <img
+      src="https://visitor-badge.laobi.icu/badge?page_id=sunnymrawal-lab.nvarog-health-identity-demo"
+      alt=""
+      width="1"
+      height="1"
+      style="position:absolute;top:0;left:0;opacity:0;pointer-events:none"
+    />
   </body>
 </html>
