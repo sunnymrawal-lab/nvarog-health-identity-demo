@@ -3399,7 +3399,7 @@ Expires ${ue}.`},U=K=>`https://wa.me/?text=${encodeURIComponent(T(K))}`,te=K=>`m
   /* ── Provider identity card (item: Nurse/Doctor identity card) — same flip-card mechanic as
      CockpitPage.tsx's own ccp-idcard-flip and NurseDashboardPage.tsx's nd-idcard-*, page-local
      since every page here owns its own CSS. ── */
-  .dd-idcard-flip{perspective:1600px;margin-bottom:18px;aspect-ratio:1.388;}
+  .dd-idcard-flip{perspective:1600px;margin-bottom:18px;aspect-ratio:0.858;max-width:340px;}
   .dd-idcard-inner{display:grid;height:100%;transform-style:preserve-3d;}
   .dd-idcard-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);border-radius:22px;padding:20px;color:#fff;position:relative;overflow:hidden;}
   .dd-idcard-face.back{transform:rotateY(180deg);}
@@ -3554,9 +3554,9 @@ Expires ${ue}.`},U=K=>`https://wa.me/?text=${encodeURIComponent(T(K))}`,te=K=>`m
   .nd-body::-webkit-scrollbar{width:0;}
   /* ── Provider identity card (item: Nurse/Doctor identity card) — same flip-card mechanic as
      CockpitPage.tsx's own ccp-idcard-flip, page-local since every page here owns its own CSS. ── */
-  .nd-idcard-flip{perspective:1600px;margin-bottom:14px;aspect-ratio:1.388;}
+  .nd-idcard-flip{perspective:1600px;margin-bottom:14px;aspect-ratio:0.858;max-width:340px;}
   .nd-idcard-inner{display:grid;height:100%;transform-style:preserve-3d;}
-  .nd-idcard-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);border-radius:20px;padding:18px 20px;color:#fff;position:relative;overflow:hidden;}
+  .nd-idcard-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);border-radius:20px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;}
   .nd-idcard-face.back{transform:rotateY(180deg);}
   .nd-idcard-inner.flipped .nd-idcard-face.front{transform:rotateY(-180deg);}
   .nd-idcard-inner.flipped .nd-idcard-face.back{transform:rotateY(0deg);}
