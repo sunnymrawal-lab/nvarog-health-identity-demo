@@ -3399,13 +3399,15 @@ Expires ${ue}.`},H=J=>`https://wa.me/?text=${encodeURIComponent(D(J))}`,Z=J=>`ma
   /* ── Provider identity card (item: Nurse/Doctor identity card) — same flip-card mechanic as
      CockpitPage.tsx's own ccp-idcard-flip and NurseDashboardPage.tsx's nd-idcard-*, page-local
      since every page here owns its own CSS. ── */
-  .dd-idcard-flip{perspective:1600px;margin-bottom:18px;aspect-ratio:0.858;max-width:340px;}
-  .dd-idcard-inner{display:grid;height:100%;transform-style:preserve-3d;}
+  /* Content-driven height, same as CockpitPage.tsx's own patient Health Identity card — no fixed
+     aspect-ratio, see NurseDashboardPage.tsx's own comment on this for why. */
+  .dd-idcard-flip{perspective:1600px;margin-bottom:18px;}
+  .dd-idcard-inner{display:grid;transform-style:preserve-3d;}
   .dd-idcard-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);border-radius:22px;padding:20px;color:#fff;position:relative;overflow:hidden;}
   .dd-idcard-face.back{transform:rotateY(180deg);}
   .dd-idcard-inner.flipped .dd-idcard-face.front{transform:rotateY(-180deg);}
   .dd-idcard-inner.flipped .dd-idcard-face.back{transform:rotateY(0deg);}
-  .dd-idcard-face.front{background:linear-gradient(150deg,#0A3278 0%,#123073 100%);display:flex;flex-direction:column;justify-content:space-between;}
+  .dd-idcard-face.front{background:linear-gradient(150deg,#0A3278 0%,#123073 100%);}
   .dd-idcard-face.front::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);pointer-events:none;}
   .dd-idcard-eyebrow{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;position:relative;}
   .dd-hero-row{display:flex;align-items:center;gap:12px;position:relative;}
@@ -3554,13 +3556,17 @@ Expires ${ue}.`},H=J=>`https://wa.me/?text=${encodeURIComponent(D(J))}`,Z=J=>`ma
   .nd-body::-webkit-scrollbar{width:0;}
   /* ── Provider identity card (item: Nurse/Doctor identity card) — same flip-card mechanic as
      CockpitPage.tsx's own ccp-idcard-flip, page-local since every page here owns its own CSS. ── */
-  .nd-idcard-flip{perspective:1600px;margin-bottom:14px;aspect-ratio:0.858;max-width:340px;}
-  .nd-idcard-inner{display:grid;height:100%;transform-style:preserve-3d;}
+  /* Content-driven height, same as CockpitPage.tsx's own patient Health Identity card — no fixed
+     aspect-ratio. A ratio measured at one viewport width doesn't hold at others (the patient card
+     itself reflows from landscape on desktop to portrait on narrow mobile as its own text wraps);
+     copying a single number was the wrong fix, confirmed by re-measuring at 310/375/1440px. */
+  .nd-idcard-flip{perspective:1600px;margin-bottom:14px;}
+  .nd-idcard-inner{display:grid;transform-style:preserve-3d;}
   .nd-idcard-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform:rotateY(0deg);border-radius:20px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;}
   .nd-idcard-face.back{transform:rotateY(180deg);}
   .nd-idcard-inner.flipped .nd-idcard-face.front{transform:rotateY(-180deg);}
   .nd-idcard-inner.flipped .nd-idcard-face.back{transform:rotateY(0deg);}
-  .nd-idcard-face.front{background:linear-gradient(135deg,#0A3278 0%,#2A52A8 100%);display:flex;flex-direction:column;justify-content:space-between;}
+  .nd-idcard-face.front{background:linear-gradient(135deg,#0A3278 0%,#2A52A8 100%);}
   .nd-idcard-face.front::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);pointer-events:none;}
   .nd-idcard-eyebrow{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;}
   .nd-idcard-mainrow{display:flex;align-items:center;gap:12px;}
